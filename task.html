@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limited Time Offer</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    .row {
+      display: flex;
+      border-radius: 20px; /* Add rounded corners to the parent div */
+      overflow: hidden; /* Ensure the child elements do not overflow and maintain rounded corners */
+    }
+    
+    /* Create three equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 10px;
+      height: 90px; /* Should be removed. Only for demonstration */
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .row {
+        flex-wrap: wrap;
+      }
+      
+      .column {
+        width: 100%;
+        height: auto;
+        padding: 5px;
+      }
+      
+      h2 {
+        font-size: 14px;
+      }
+    }
+    </style>    
+</head>
+
+<body>
+  <div class="row">
+    <div class="column" style="background-color:#ff7300;">
+      <h2> <span style="color: red;">&#x23F0;</span> Limited Time Offer!</h2>
+    </div>
+    <div class="column" style="background-color:#ff7300;">
+      <div> <h2> Ends in: <span class="countdown">00:00:00</span> </h2> </div>
+    </div>
+    <div class="column" style="background-color:#ff7300;;">
+      <h2>GET 10% OFF Use Code: EXAMSTART</h2>
+    </div>
+  </div>
+  
+  <script>
+  // Function to start the countdown timer from a specific time
+  function startCountdown(endTime) {
+    const countdownElement = document.querySelector('.countdown');
+  
+    function updateCountdown() {
+      const currentTime = new Date().getTime();
+      const timeDifference = endTime - currentTime;
+  
+      if (timeDifference <= 0) {
+        clearInterval(intervalId);
+        countdownElement.textContent = "00:00:00";
+        // You can add code here to reset the timer or perform other actions
+      } else {
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+        countdownElement.textContent = formatTime(hours) + ":" + formatTime(minutes) + ":" + formatTime(seconds);
+      }
+    }
+  
+    function formatTime(time) {
+      return time < 10 ? "0" + time : time;
+    }
+  
+    // Initial call to update the countdown
+    updateCountdown();
+  
+    // Update the countdown every second
+    const intervalId = setInterval(updateCountdown, 1000);
+  }
+  
+  // Specify the end time for the countdown (change this to the desired end time)
+  const endTime = new Date().getTime() + (7200000/* Specify the time remaining in milliseconds */);
+  
+  startCountdown(endTime);
+  </script>    
+</body>
+</html>
+
+
+
+
+
+
+
+</body>
+</html> 
